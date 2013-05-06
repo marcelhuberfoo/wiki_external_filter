@@ -108,7 +108,7 @@ module WikiExternalFilterHelper
       begin
         require 'open4'
 
-        Open4::popen4(out['command']) { |pid, fin, fout, ferr|
+        Open4::popen4("#{out['command']} #{args.join(' ')}") { |pid, fin, fout, ferr|
           fin.write out['prolog'] if out.key?('prolog')
           fin.write text
           fin.write out['epilog'] if out.key?('epilog')
@@ -116,7 +116,7 @@ module WikiExternalFilterHelper
           c, e = [fout.read, ferr.read]
         }
       rescue LoadError
-        IO.popen(out['command'], 'r+b') { |f|
+        IO.popen("#{out['command']} #{args.join(' ')}", 'r+b') { |f|
           f.write out['prolog'] if out.key?('prolog')
           f.write text
           f.write out['epilog'] if out.key?('epilog')
