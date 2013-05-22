@@ -61,10 +61,8 @@ module WikiExternalFilterHelper
             Rails.logger.debug "cache saved: #{cache_key} expires #{expires.seconds}"
           rescue
             Rails.logger.error "Failed to save cache: #{cache_key}, result content #{result[:content]}, error: $!"
-	        end
-        else
-	        raise "please set expires time under plugins settings"
-	      end
+          end
+	end
       else
         raise "Error applying external filter: stdout is #{result[:content]}, stderr is #{result[:errors]}"
       end
@@ -94,7 +92,7 @@ module WikiExternalFilterHelper
     content = []
     errors = ""
 
-    text          = text.gsub("<br />", "\n")
+    text          = text.gsub("<br />", "\n") if text
     Rails.logger.debug "\n Text #{text} \n"
 
     info['outputs'].each do |out|
