@@ -5,8 +5,8 @@ development: &development
     outputs:
       - command: "/usr/bin/plantuml -pipe"
         content_type: "image/png"
-        prolog: "@startuml"
-        epilog: "@enduml"
+        prolog: "\r\n@startuml\r\n"
+        epilog: "\r\n@enduml\r\n"
   tikz:
     description: "Converts latex/tikz picture to svg. It requires pdflatex and pdf2svg."
     template: image
