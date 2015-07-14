@@ -5,7 +5,8 @@ module WikiExternalFilterHelper
 
   def load_config
     unless @config
-      config_file = "#{Rails.root}/config/wiki_external_filter.yml"
+      base_path = (ENV['REDMINE_DATA_DIR'] or "#{Rails.root}")
+      config_file = base_path + "/config/wiki_external_filter.yml"
       unless File.exists?(config_file)
         raise "Config not found: #{config_file}"
       end
